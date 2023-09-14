@@ -1,8 +1,8 @@
 # OpenFDTD
 OpenFDTDでシミュレーションを行うためのコードです。
 
-##初回環境構築
-###Linux開発環境
+## 初回環境構築
+### Linux開発環境
 ```bash
 $ cd src
 $ make -f Makefile_gcc clean
