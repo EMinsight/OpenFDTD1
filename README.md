@@ -1,0 +1,2 @@
+# OpenFDTD
+OpenFDTDでシミュレーションを行うためのコードです。
