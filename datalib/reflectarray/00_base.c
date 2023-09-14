@@ -7,8 +7,8 @@ int main(void)
 	const int nxarray = 5;
 	const int nyarray = 25;
 	const int ns = 5;
-    const double freq = 14e9;
-    const double lambda = 3e8 / freq;
+	const double freq = 14e9;
+	const double lambda = 3e8 / freq;
 	const double dx = 0.1*lambda;
 	const double dy = 0.1*lambda;
 	const double er = 2.3;
@@ -16,7 +16,7 @@ int main(void)
 	const double dt = 1.6e-3;
 	const double h = 20e-3;
 	const double dh = 16e-3;
-    const double margin = 0.25*lambda;
+	const double margin = 0.25*lambda;
 	const double l[] = {2.13e-3, 2.04e-3, 1.91e-3, 1.75e-3, 1.57e-3};
 
 	const double eps0 = 8.854e-12;
@@ -34,7 +34,7 @@ int main(void)
 
 	const double x0 = -nxarray / 2.0 * ns * dx;
 	const double x1 = -x0;
-    const int xmesh_margin = (margin) / (0.01*lambda);
+	const int xmesh_margin = (margin) / (0.01*lambda);
 	const int xmesh_base = (x1 - x0) / (0.005*lambda);
 	ofd_xsection(4, x0 - margin, x0, x1, x1 + margin);
 	ofd_xdivision(3, xmesh_margin, xmesh_base, xmesh_margin);
