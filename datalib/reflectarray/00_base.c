@@ -41,7 +41,7 @@ int main(void)
 
 	const double y0 = -nyarray / 2.0 * dy;
 	const double y1 = -y0;
-    const int ymesh_margin =  (margin) / (0.01*lambda);
+	const int ymesh_margin =  (margin) / (0.01*lambda);
 	const int ymesh_base = (y1 - y0) / (0.005*lambda);
 	ofd_ysection(4, y0 - margin, y0, y1, y1 + margin);
 	ofd_ydivision(3, ymesh_margin, ymesh_base, ymesh_margin);
