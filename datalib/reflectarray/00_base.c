@@ -82,6 +82,8 @@ int main(void)
 		const double x = x0 + (2*i * ns * dx);
 		const double y = y0 + (j + 0.5) * dy;
 		const double xg = x0 + (2*i * ns * dx) + (ns * dx);
+		// grid flame
+		ofd_geometry(1, 1, xg, xg + (ns * dx), y0, y1, z2, z2);
 		// reconfigurable stracture
 		ofd_geometry(2, 1, x, x + (ns * dx), y0, y1, z0, z_div);
 		ofd_geometry(2, 1, xg, xg + (ns * dx), y0, y1, z_div, z1);
@@ -96,7 +98,6 @@ int main(void)
 		}
 		for (int g = 0; g < nt; g++) {
 			const double xb = xg + (g + 0.5) * dx;
-			//ofd_geometry(1, 1, xb, x1, -y/2, +y/2, z2, z2);
 			ofd_geometry(0, 1, xb - m[g] /2, xb + m[g]/2, y -m[g]/2, y +m[g]/2, z2, z2);
 		}
 	}
