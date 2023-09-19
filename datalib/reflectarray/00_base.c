@@ -25,8 +25,8 @@ int main(void)
 	const double z_div = 1.5e-3;
 	const double dh = 16e-3;
 	const double margin = 1*lambda;
-	const double l[] = {4.8e-3, 3e-3, 2e-3, 1e-3};
-	const double m[] = {4.8e-3, 3e-3, 2e-3, 1e-3};
+	const double l[] = {0.67*dx, 0.52*dx, 0.43*dx, 0.31*dx};
+	const double m[] = {0.58*dx, 0.55*dx, 0.52*dx, 0.43*dx};
 
 	const double eps0 = 8.854e-12;
 	const double pi = 4 * atan(1);
