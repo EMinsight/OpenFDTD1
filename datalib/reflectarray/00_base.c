@@ -22,6 +22,7 @@ int main(void)
 	const double tand = 0.001;
 	const double dt = 1.6e-3;
 	const double h = 20e-3;
+	const double z_div = 16e-3;
 	const double dh = 16e-3;
 	const double margin = 0.25*lambda;
 	const double l[] = {2.13e-3, 2.04e-3, 1.91e-3, 1.75e-3, 1.57e-3};
@@ -72,18 +73,23 @@ int main(void)
 
 	// geometry
 
-	// ground
-	ofd_geometry(1, 1, x0, x1, y0, y1, z0, z0);
-
 	// substrate
 	ofd_geometry(2, 1, x0, x1, y0, y1, z1, z2);
-	// ofd_geometry(2, 1, x0, x1, y0, y1, z1 - dh, z1);
+
 
 	for (int i = 0; i < nxarray; i++) {
 	for (int j = 0; j < nyarray; j++) {
 		const double x = x0 + (2*i * ns * dx);
 		const double y = y0 + (j + 0.5) * dy;
 		const double xg = x0 + (2*i * ns * dx) + (ns * dx);
+		// reconfigurable stracture
+		ofd_geometry(2, 1, x, x + (ns * dx), y0, y1, z0, z_div);
+		ofd_geometry(2, 1, xg, xg + (ns * dx), y0, y1, z_div, z1);
+		// metalic wall
+		ofd_geometry(1, 1, x, x, y0, y1, z0, z1);
+		ofd_geometry(1, 1, xg, xg, y0, y1, z0, z1);
+		ofd_geometry(1, 1, x1, x1, y0, y1, z0, z1);
+
 		for (int p = 0; p < ns; p++) {
 			const double xa = x + (p + 0.5) * dx;
 			ofd_geometry(1, 1, xa - l[p] /2, xa + l[p]/2, y -l[p]/2, y +l[p]/2, z2, z2);
@@ -95,6 +101,9 @@ int main(void)
 		}
 	}
 	}
+
+	// ground
+	ofd_geometry(1, 1, x0, x1, y0, y1, z0, z0);
 
 	// plane wave
 
