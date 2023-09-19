@@ -1,3 +1,9 @@
+/*
+	gcc -O 00_base.c ofd_datalib.c -o 00
+	./00
+*/
+
+
 #include "ofd_datalib.h"
 #include <math.h>
 #include <stdio.h>
