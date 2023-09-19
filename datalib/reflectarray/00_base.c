@@ -11,22 +11,22 @@
 int main(void)
 {
 	const int nxarray = 5;
-	const int nyarray = 50;
-	const int ns = 5;
-	const int nt = 5;
-	const double freq = 14e9;
+	const int nyarray = 40;
+	const int ns = 4;
+	const int nt = 4;
+	const double freq = 28e9;
 	const double lambda = 3e8 / freq;
-	const double dx = 0.1*lambda;
-	const double dy = 0.1*lambda;
+	const double dx = 0.5*lambda;
+	const double dy = 0.5*lambda;
 	const double er = 2.3;
 	const double tand = 0.001;
 	const double dt = 1.6e-3;
-	const double h = 20e-3;
-	const double z_div = 16e-3;
+	const double h = 5e-3;
+	const double z_div = 1.5e-3;
 	const double dh = 16e-3;
-	const double margin = 0.25*lambda;
-	const double l[] = {2.13e-3, 2.04e-3, 1.91e-3, 1.75e-3, 1.57e-3};
-	const double m[] = {2e-3, 1.5e-3, 1e-3, 0.5e-3, 0.2e-3};
+	const double margin = 1*lambda;
+	const double l[] = {4.8e-3, 3e-3, 2e-3, 1e-3};
+	const double m[] = {4.8e-3, 3e-3, 2e-3, 1e-3};
 
 	const double eps0 = 8.854e-12;
 	const double pi = 4 * atan(1);
@@ -85,20 +85,21 @@ int main(void)
 		// grid flame
 		ofd_geometry(1, 1, xg, xg + (ns * dx), y0, y1, z2, z2);
 		// reconfigurable stracture
-		ofd_geometry(2, 1, x, x + (ns * dx), y0, y1, z0, z_div);
-		ofd_geometry(2, 1, xg, xg + (ns * dx), y0, y1, z_div, z1);
-		// metalic wall
-		ofd_geometry(1, 1, x, x, y0, y1, z0, z1);
-		ofd_geometry(1, 1, xg, xg, y0, y1, z0, z1);
-		ofd_geometry(1, 1, x1, x1, y0, y1, z0, z1);
+		ofd_geometry(2, 1, xg, xg + (ns * dx), y0, y1, z0, z_div);
+		ofd_geometry(2, 1, x, x + (ns * dx), y0, y1, z_div, z1);
 
 		for (int p = 0; p < ns; p++) {
 			const double xa = x + (p + 0.5) * dx;
 			ofd_geometry(1, 1, xa - l[p] /2, xa + l[p]/2, y -l[p]/2, y +l[p]/2, z2, z2);
+			// metalic wall
+			ofd_geometry(1, 1, x + p * dx, x + p * dx, y0, y1, z0, z1);
 		}
 		for (int g = 0; g < nt; g++) {
 			const double xb = xg + (g + 0.5) * dx;
 			ofd_geometry(0, 1, xb - m[g] /2, xb + m[g]/2, y -m[g]/2, y +m[g]/2, z2, z2);
+			// metalic wall
+			ofd_geometry(1, 1, xg + g * dx, xg + g * dx, y0, y1, z0, z1);
+			ofd_geometry(1, 1, x1, x1, y0, y1, z0, z1);
 		}
 	}
 	}
