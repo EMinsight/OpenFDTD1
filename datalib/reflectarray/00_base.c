@@ -43,26 +43,26 @@ int main(void)
 
 	const double x0 = -nxarray * ns * dx;
 	const double x1 = -x0;
-	const int xmesh_margin = (margin) / (0.01*lambda);
-	const int xmesh_base = (x1 - x0) / (0.005*lambda);
+	const int xmesh_margin = (margin) / (lambda/100);
+	const int xmesh_base = (x1 - x0) / (lambda/200);
 	ofd_xsection(4, x0 - margin, x0, x1, x1 + margin);
 	ofd_xdivision(3, xmesh_margin, xmesh_base, xmesh_margin);
 
 	const double y0 = -nyarray / 2.0 * dy;
 	const double y1 = -y0;
-	const int ymesh_margin =  (margin) / (0.01*lambda);
-	const int ymesh_base = (y1 - y0) / (0.005*lambda);
+	const int ymesh_margin =  (margin) / (lambda/100);
+	const int ymesh_base = (y1 - y0) / (lambda/200);
 	ofd_ysection(4, y0 - margin, y0, y1, y1 + margin);
 	ofd_ydivision(3, ymesh_margin, ymesh_base, ymesh_margin);
 
 	const double z0 = 0;
 	const double z1 = z0 + h;
 	const double z2 = z1 + dt;
-	const double z3 = z2 + 0.5*lambda;
-	const int zmesh_d = (0.5*lambda) / (0.005*lambda);
-	const int zmesh_base = (dt) / (0.005*lambda);
-	const int zmesh_h = h / (0.005*lambda);
-	const int zmesh_margin = (margin) / (0.01*lambda);
+	const double z3 = z2 + lambda;
+	const int zmesh_d = (lambda) / (lambda/200);
+	const int zmesh_base = (dt) / (lambda/200);
+	const int zmesh_h = h / (lambda/200);
+	const int zmesh_margin = (margin) / (lambda/100);
 	ofd_zsection(5, z0 - margin, z0, z1, z2, z3);
 	ofd_zdivision(4, zmesh_margin, zmesh_h, zmesh_base, zmesh_d);
 
