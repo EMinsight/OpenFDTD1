@@ -10,10 +10,10 @@
 
 int main(void)
 {
-	const int nxarray = 3;
-	const int nyarray = 24;
-	const int ns = 4;
-	const int nt = 4;
+	const int nxarray = 5;
+	const int nyarray = 30;
+	const int ns = 3;
+	const int nt = 3;
 	const double freq = 28e9;
 	const double lambda = 3e8 / freq;
 	const double dx = 0.5*lambda;
