@@ -11,7 +11,7 @@
 int main(void)
 {
 	const int nxarray = 2;
-	const int nyarray = 1;
+	const int nyarray = 16;
 	const int ns = 4;           // Count of Upper cell
 	const int nt = 4;           // Count of Lower cell
 	const double freq = 28e9;
@@ -22,7 +22,7 @@ int main(void)
 	const double tand = 0.0015;
 	const double dt = 1.6e-3;   // Thicness of BaseDielectric
 	const double h = 10e-3;     // Hight of Space of InsertDielectric 
-	const double z_div = 0;// Diverce of InsertDielectric
+	const double z_div = 5e-3;// Diverce of InsertDielectric
 	const double margin = 1*lambda;
 	const double l[] = {0.77*dx, 0.27*dx, 0.51*dx, 0.655*dx};
 	const double m[] = {0.805*dx, 0.52*dx, 0.59*dx, 0.665*dx};
@@ -46,26 +46,26 @@ int main(void)
 
 	const double x0 = -nxarray * (ns+nt) /2 * dx;
 	const double x1 = -x0;
-	const int xmesh_margin = (margin) / (lambda/100);
-	const int xmesh_base = (x1 - x0) / (lambda/200);
+	const int xmesh_margin = (margin) / (lambda/50);
+	const int xmesh_base = (x1 - x0) / (lambda/100);
 	ofd_xsection(4, x0 - margin, x0, x1, x1 + margin);
 	ofd_xdivision(3, xmesh_margin, xmesh_base, xmesh_margin);
 
 	const double y0 = -nyarray / 2.0 * dy;
 	const double y1 = -y0;
-	const int ymesh_margin =  (margin) / (lambda/100);
-	const int ymesh_base = (y1 - y0) / (lambda/200);
+	const int ymesh_margin =  (margin) / (lambda/50);
+	const int ymesh_base = (y1 - y0) / (lambda/100);
 	ofd_ysection(4, y0 - margin, y0, y1, y1 + margin);
 	ofd_ydivision(3, ymesh_margin, ymesh_base, ymesh_margin);
 
 	const double z0 = 0;
 	const double z1 = z0 + h;
 	const double z2 = z1 + dt;
-	const double z3 = z2 + 0.5*lambda;
-	const int zmesh_d = (0.5*lambda) / (lambda/200);
-	const int zmesh_base = (dt) / (lambda/200);
-	const int zmesh_h = h / (lambda/200);
-	const int zmesh_margin = (margin) / (lambda/100);
+	const double z3 = z2 + 1.5*lambda;
+	const int zmesh_d = (1.5*lambda) / (lambda/100);
+	const int zmesh_base = (dt) / (lambda/100);
+	const int zmesh_h = h / (lambda/100);
+	const int zmesh_margin = (margin) / (lambda/50);
 	ofd_zsection(5, z0 - margin, z0, z1, z2, z3);
 	ofd_zdivision(4, zmesh_margin, zmesh_h, zmesh_base, zmesh_d);
 
@@ -99,6 +99,7 @@ int main(void)
             ofd_geometry(1, 1, xa - l[p]*r/2, xa + l[p]*r/2, y+(wm/2)+dist, y+(wm/2)+dist+wp, z2, z2);
             // metalic wall
 		    ofd_geometry(1, 1, x + p * dx, x + p * dx, y0, y1, z0, z1);
+			ofd_geometry(1, 1, 0, 0, y0, y1, z0, z1);
 		}
 		for (int g = 0; g < nt; g++) {  // Lower Type
 			const double xb = xg + (g + 0.5) * dx;  // Center of UC
@@ -119,7 +120,7 @@ int main(void)
 
 	// plane wave
 
-	ofd_planewave(0, 90, 1);
+	ofd_planewave(0, 0, 1);
 
 	// ABC
 
@@ -132,7 +133,7 @@ int main(void)
 
 	// solver
 
-	ofd_solver(30000, 100, 1e-3);
+	ofd_solver(50000, 100, 1e-3);
 
 	// iteration
 
@@ -149,7 +150,7 @@ int main(void)
 	ofd_far1ddb(1);
 
 	// near-2d
-	ofd_plotnear2d("Ey",'Y',0);
+	ofd_plotnear2d("Ex",'Y',0);
 
 
 	// output option
